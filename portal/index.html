@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Student Portal · AI My Life</title>
+<meta name="description" content="Private resource archive for AI My Life workshop students.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a1628'/><path d='M27 72 50 26 73 72' stroke='%2310b981' stroke-width='9' fill='none' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+
+<style>
+/* ============================================================
+   AI My Life — Student Portal
+   Palette: navy #0a1628 / #0f2440 · emerald #10b981 / #34d399
+   ============================================================ */
+:root{
+  --navy-900:#070f1d; --navy-800:#0a1628; --navy-700:#0f2440;
+  --navy-600:#14305a; --line:#1d3a66; --line-soft:#16294a;
+  --em-500:#10b981; --em-400:#34d399; --em-600:#059669;
+  --ink:#e8eefb; --ink-2:#aebfda; --ink-3:#7c91b4;
+  --danger:#f87171;
+  --r-sm:8px; --r:14px; --r-lg:20px;
+  --shadow:0 18px 50px -12px rgba(0,0,0,.65);
+  --maxw:1240px;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; font-family:var(--font); color:var(--ink);
+  background:
+    radial-gradient(1100px 620px at 12% -8%, rgba(16,185,129,.16), transparent 60%),
+    radial-gradient(900px 520px at 92% 4%, rgba(20,48,90,.75), transparent 62%),
+    var(--navy-800);
+  background-attachment:fixed;
+  min-height:100vh; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--em-400)}
+:focus-visible{outline:2px solid var(--em-400);outline-offset:2px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hidden{display:none !important}
+
+/* ---------- Brand mark ---------- */
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+.brand svg{width:34px;height:34px;flex:none}
+.brand b{font-size:1.02rem;font-weight:700;letter-spacing:-.015em;display:block;line-height:1.2}
+.brand span{font-size:.72rem;color:var(--ink-3);letter-spacing:.09em;text-transform:uppercase;display:block}
+
+/* ============================================================
+   LOCK SCREEN
+   ============================================================ */
+#gate{min-height:100vh;display:grid;place-items:center;padding:28px 20px}
+.gate-card{
+  width:100%;max-width:432px;background:linear-gradient(170deg,rgba(15,36,64,.96),rgba(10,22,40,.98));
+  border:1px solid var(--line);border-radius:var(--r-lg);padding:38px 34px 30px;
+  box-shadow:var(--shadow);
+}
+.gate-card .brand{justify-content:center;margin-bottom:26px}
+.gate-card h1{font-size:1.4rem;margin:0 0 6px;text-align:center;letter-spacing:-.02em}
+.gate-card .sub{margin:0 0 26px;text-align:center;color:var(--ink-2);font-size:.9rem}
+.field{position:relative;margin-bottom:14px}
+.field label{display:block;font-size:.76rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.input{
+  width:100%;padding:13px 15px;background:rgba(7,15,29,.72);border:1px solid var(--line);
+  border-radius:var(--r-sm);font-size:1rem;transition:border-color .15s,box-shadow .15s;
+}
+.input::placeholder{color:#5d719a}
+.input:focus{outline:none;border-color:var(--em-500);box-shadow:0 0 0 3px rgba(16,185,129,.16)}
+#pw{padding-right:54px;letter-spacing:.06em}
+.peek{
+  position:absolute;right:6px;bottom:5px;height:38px;width:42px;display:grid;place-items:center;
+  background:none;border:0;cursor:pointer;color:var(--ink-3);border-radius:6px;
+}
+.peek:hover{color:var(--em-400)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 18px;border-radius:var(--r-sm);border:1px solid transparent;
+  font-weight:600;font-size:.93rem;cursor:pointer;text-decoration:none;
+  transition:transform .12s,background .15s,border-color .15s,opacity .15s;
+}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn-primary{width:100%;background:linear-gradient(135deg,var(--em-500),var(--em-600));color:#04160f;padding:13px 18px;font-size:.98rem}
+.btn-primary:hover:not([disabled]){background:linear-gradient(135deg,var(--em-400),var(--em-500))}
+.btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--ink-2)}
+.btn-ghost:hover{border-color:var(--em-500);color:var(--ink)}
+.remember{display:flex;align-items:center;gap:9px;font-size:.85rem;color:var(--ink-2);margin:4px 0 20px;cursor:pointer}
+.remember input{width:16px;height:16px;accent-color:var(--em-500);cursor:pointer}
+.msg{
+  margin-top:16px;padding:11px 13px;border-radius:var(--r-sm);font-size:.86rem;
+  background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.35);color:#fecaca;
+}
+.msg.info{background:rgba(16,185,129,.09);border-color:rgba(16,185,129,.32);color:#a7f3d0}
+.gate-foot{margin-top:24px;padding-top:20px;border-top:1px solid var(--line-soft);text-align:center;font-size:.82rem;color:var(--ink-3)}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+#app{max-width:var(--maxw);margin:0 auto;padding:0 22px 72px}
+.topbar{
+  position:sticky;top:0;z-index:40;margin:0 -22px 0;padding:14px 22px;
+  background:rgba(7,15,29,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.topbar .spacer{flex:1}
+.hero{padding:38px 0 26px}
+.hero h1{font-size:clamp(1.65rem,3.6vw,2.3rem);margin:0 0 8px;letter-spacing:-.03em}
+.hero p{margin:0;color:var(--ink-2);max-width:62ch}
+.stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:22px}
+.stat b{display:block;font-size:1.5rem;color:var(--em-400);letter-spacing:-.02em}
+.stat span{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+
+/* ---------- Controls ---------- */
+.controls{
+  position:sticky;top:63px;z-index:30;padding:14px 0 16px;margin-bottom:8px;
+  background:linear-gradient(to bottom,var(--navy-800) 72%,rgba(10,22,40,0));
+}
+.searchwrap{position:relative;margin-bottom:14px}
+.searchwrap svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--ink-3);pointer-events:none}
+#search{padding-left:44px;padding-right:96px}
+.kbd{
+  position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  font-size:.7rem;color:var(--ink-3);border:1px solid var(--line);border-radius:5px;padding:2px 7px;
+  background:rgba(7,15,29,.8);pointer-events:none;
+}
+.chips{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.chip{
+  padding:8px 15px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(15,36,64,.55);color:var(--ink-2);font-size:.86rem;font-weight:500;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;transition:all .15s;white-space:nowrap;
+}
+.chip:hover{border-color:var(--navy-600);color:var(--ink)}
+.chip[aria-pressed="true"]{background:rgba(16,185,129,.14);border-color:var(--em-500);color:var(--em-400)}
+.chip .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.chip .n{font-size:.75rem;opacity:.65;font-variant-numeric:tabular-nums}
+.resultbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 16px;font-size:.85rem;color:var(--ink-3)}
+.resultbar select{
+  background:rgba(15,36,64,.7);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:7px 11px;font-size:.84rem;cursor:pointer;
+}
+
+/* ---------- Grid + cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(316px,1fr));gap:20px}
+.card{
+  background:linear-gradient(168deg,rgba(15,36,64,.88),rgba(10,22,40,.94));
+  border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .18s,border-color .18s,box-shadow .18s;
+}
+.card:hover{transform:translateY(-3px);border-color:var(--navy-600);box-shadow:0 16px 36px -14px rgba(0,0,0,.7)}
+.thumb{
+  position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,var(--navy-700),var(--navy-900));
+  border:0;padding:0;width:100%;cursor:pointer;display:block;overflow:hidden;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;opacity:.82;transition:opacity .2s,transform .3s}
+.card:hover .thumb img{opacity:1;transform:scale(1.03)}
+.thumb .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-3);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:0 16px}
+.thumb::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(420px 220px at 22% 14%, rgba(16,185,129,.12), transparent 70%);pointer-events:none}
+.play{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:54px;height:54px;border-radius:50%;background:rgba(16,185,129,.94);
+  display:grid;place-items:center;color:#04160f;box-shadow:0 8px 24px rgba(0,0,0,.45);transition:transform .18s;
+}
+.thumb:hover .play{transform:translate(-50%,-50%) scale(1.09)}
+.dur{position:absolute;right:9px;bottom:9px;background:rgba(7,15,29,.88);border:1px solid var(--line);
+  padding:3px 8px;border-radius:6px;font-size:.72rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.card-body{padding:16px 17px 17px;display:flex;flex-direction:column;flex:1;gap:9px}
+.badge{
+  display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
+  border:1px solid currentColor;align-self:flex-start;
+}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.card h3{margin:0;font-size:1.03rem;line-height:1.35;letter-spacing:-.015em}
+.card .meta{font-size:.78rem;color:var(--ink-3);display:flex;gap:9px;flex-wrap:wrap}
+.card .sum{margin:0;font-size:.875rem;color:var(--ink-2);flex:1}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.7rem;color:var(--ink-3);background:rgba(7,15,29,.6);border:1px solid var(--line-soft);padding:2px 8px;border-radius:5px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;padding-top:13px;border-top:1px solid var(--line-soft)}
+.actions .btn{padding:8px 13px;font-size:.82rem}
+.empty{text-align:center;padding:72px 20px;color:var(--ink-3)}
+.empty svg{margin:0 auto 16px;color:var(--navy-600)}
+.empty h3{color:var(--ink-2);margin:0 0 6px;font-size:1.05rem}
+
+/* ---------- Modal ---------- */
+.backdrop{
+  position:fixed;inset:0;z-index:100;background:rgba(3,8,17,.87);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  display:grid;place-items:center;padding:20px;overflow-y:auto;
+}
+.modal{
+  width:100%;max-width:1000px;background:var(--navy-700);border:1px solid var(--line);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);
+}
+.modal .frame{aspect-ratio:16/9;background:#000;width:100%}
+.modal .frame iframe{width:100%;height:100%;border:0;display:block}
+.modal-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:11px}
+.modal-head{display:flex;gap:16px;align-items:flex-start}
+.modal-head h2{margin:0 0 6px;font-size:1.22rem;letter-spacing:-.02em}
+.xbtn{margin-left:auto;flex:none;width:36px;height:36px;border-radius:var(--r-sm);
+  background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink-2);cursor:pointer;display:grid;place-items:center}
+.xbtn:hover{border-color:var(--danger);color:var(--danger)}
+
+/* ---------- Admin tool ---------- */
+#admin{max-width:860px;margin:0 auto;padding:40px 22px 80px}
+#admin h1{font-size:1.4rem;letter-spacing:-.02em}
+#admin textarea{width:100%;min-height:210px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;resize:vertical}
+.panel{background:rgba(15,36,64,.6);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px}
+.panel h2{margin:0 0 4px;font-size:1rem}
+.panel p{margin:0 0 14px;font-size:.86rem;color:var(--ink-2)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+
+@media (max-width:640px){
+  #app{padding:0 15px 56px}
+  .topbar{margin:0 -15px;padding:12px 15px}
+  .controls{top:59px}
+  .grid{grid-template-columns:1fr;gap:16px}
+  .gate-card{padding:30px 22px 24px}
+  .hero{padding:28px 0 18px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ LOCK SCREEN ============================ -->
+<main id="gate">
+  <div class="gate-card">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#0f2440"/><path d="M27 72 50 26 73 72" stroke="#10b981" stroke-width="9" fill="none" stroke-linejoin="round" stroke-linecap="round"/><path d="M36 58h28" stroke="#34d399" stroke-width="7" stroke-linecap="round"/></svg>
+      <div><b>AI My Life</b><span>Student Portal</span></div>
+    </div>
+
+    <h1>Welcome back</h1>
+    <p class="sub">Enter the passcode from your enrollment email to open the resource archive.</p>
+
+    <form id="gate-form" autocomplete="off">
+      <div class="field">
+        <label for="pw">Cohort passcode</label>
+        <input class="input" id="pw" type="password" inputmode="text" autocomplete="current-password"
+               placeholder="••••••••••••" required aria-describedby="gate-msg">
+        <button class="peek" type="button" id="peek" aria-label="Show passcode" aria-pressed="false">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <label class="remember"><input type="checkbox" id="remember"> Keep me signed in on this device</label>
+      <button class="btn btn-primary" id="unlock" type="submit">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0"/></svg>
+        Unlock archive
+      </button>
+    </form>
+
+    <div id="gate-msg" class="msg hidden" role="alert" aria-live="assertive"></div>
+
+    <div class="gate-foot">
+      Lost your passcode? Email <a href="mailto:hello@aimylife.org">hello@aimylife.org</a>
+    </div>
+  </div>
+</main>
+
+<!-- ============================ APP ============================ -->
+<div id="app" class="hidden">
+  <header class="topbar">
+    <a class="brand" href="#" id="home-link">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#0f2440"/><path d="M27 72 50 26 73 72" stroke="#10b981" stroke-width="9" fill="none" stroke-linejoin="round" stroke-linecap="round"/><path d="M36 58h28" stroke="#34d399" stroke-width="7" stroke-linecap="round"/></svg>
+      <div><b>AI My Life</b><span>Student Portal</span></div>
+    </a>
+    <div class="spacer"></div>
+    <button class="btn btn-ghost" id="signout" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+      Sign out
+    </button>
+  </header>
+
+  <section class="hero">
+    <h1>Your workshop archive</h1>
+    <p>Every recorded session, slide deck, and prompt cheat-sheet across all four tracks. New sessions are posted within 24 hours of going live.</p>
+    <div class="stats">
+      <div class="stat"><b id="s-sessions">0</b><span>Sessions</span></div>
+      <div class="stat"><b id="s-tracks">0</b><span>Tracks</span></div>
+      <div class="stat"><b id="s-resources">0</b><span>Resources</span></div>
+      <div class="stat"><b id="s-updated">—</b><span>Last updated</span></div>
+    </div>
+  </section>
+
+  <section class="controls">
+    <div class="searchwrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.3-3.3"/></svg>
+      <input class="input" id="search" type="search" placeholder="Search sessions, topics, tools…" aria-label="Search sessions">
+      <span class="kbd">press /</span>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filter by track"></div>
+  </section>
+
+  <div class="resultbar">
+    <span id="count">—</span>
+    <div class="spacer" style="flex:1"></div>
+    <label for="sort" class="sr">Sort order</label>
+    <select id="sort">
+      <option value="new">Newest first</option>
+      <option value="old">Oldest first</option>
+      <option value="track">By track &amp; session</option>
+    </select>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="empty hidden" id="empty">
+    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.3-3.3"/></svg>
+    <h3>No sessions match that filter</h3>
+    <p>Try a different keyword or clear the track filters.</p>
+  </div>
+</div>
+
+<!-- ============================ ADMIN / ENCRYPT TOOL ============================ -->
+<div id="admin" class="hidden">
+  <h1>Portal content tool</h1>
+  <p style="color:var(--ink-2);font-size:.9rem">
+    Local-only utility — nothing leaves this browser tab. Use it to regenerate the passcode verifier
+    or to encrypt your content so recording links never appear in the page source.
+  </p>
+
+  <div class="panel">
+    <h2>1 · Passcode</h2>
+    <p>The cohort passcode you hand out to students.</p>
+    <input class="input" id="a-pass" type="text" placeholder="e.g. aimylife2026" autocomplete="off">
+  </div>
+
+  <div class="panel">
+    <h2>2 · Content JSON</h2>
+    <p>Paste the JSON produced by <code>exportPortalJson()</code> in Apps Script (or edit by hand).</p>
+    <textarea class="input" id="a-json" spellcheck="false" placeholder='{ "tracks": [...], "sessions": [...] }'></textarea>
+    <div class="row" style="margin-top:12px">
+      <button class="btn btn-ghost" id="a-load" type="button">Load current content</button>
+      <button class="btn btn-ghost" id="a-validate" type="button">Validate JSON</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>3 · Generate</h2>
+    <p>Mode A keeps content readable in the file. Mode B encrypts it — recommended.</p>
+    <div class="row">
+      <button class="btn btn-ghost" id="a-hash" type="button">Mode A — verifier only</button>
+      <button class="btn btn-primary" style="width:auto" id="a-enc" type="button">Mode B — encrypt content</button>
+    </div>
+    <textarea class="input" id="a-out" spellcheck="false" readonly style="margin-top:14px" placeholder="Output appears here — copy it into index.html"></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-ghost" id="a-copy" type="button">Copy output</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ================================================================
+   CONFIGURATION — edit this block
+   ================================================================ */
+const CONFIG = {
+  org:      "AI My Life",
+  support:  "hello@aimylife.org",
+  kdf:      310000,          // PBKDF2 iterations. Higher = slower to brute force.
+  maxTries: 8,               // attempts before a cooldown kicks in
+  updated:  "Oct 2026"       // shown in the stats row
+};
+
+/* ----------------------------------------------------------------
+   MODE A — plaintext content + passcode verifier.
+   Default passcode below is: aimylife2026   (CHANGE IT — see #admin)
+   ---------------------------------------------------------------- */
+const VERIFIER = {
+  salt: "/hwddOq4Ca/5TR4rPDwJjQ==",
+  hash: "XO7IiGoXMGhyLZchXLjBXzpI5cymNY+towmx5pnNsoY="
+};
+
+/* ----------------------------------------------------------------
+   MODE B — encrypted content. When PAYLOAD is non-null it WINS and
+   both VERIFIER and CONTENT below are ignored. Generate at #admin.
+   ---------------------------------------------------------------- */
+const PAYLOAD = null;   // { salt:"…", iv:"…", data:"…" }
+
+/* ----------------------------------------------------------------
+   CONTENT — used in Mode A only.
+   video.kind: "youtube" | "vimeo" | "drive" | "url"
+   ---------------------------------------------------------------- */
+const CONTENT = {
+  tracks: [
+    { id:"personal", name:"AI for Personal Life",            short:"Personal",  color:"#34d399" },
+    { id:"business", name:"AI for Small Business",           short:"Business",  color:"#38bdf8" },
+    { id:"revenue",  name:"AI for Generating Revenue",       short:"Revenue",   color:"#fbbf24" },
+    { id:"cert",     name:"Google AI Certification Cohort",  short:"Cert Prep", color:"#c084fc" }
+  ],
+  sessions: [
+    {
+      id:"personal-01", track:"personal", number:1,
+      title:"Your First AI Assistant: Setup & Daily Wins",
+      date:"2026-01-14", duration:"72 min",
+      summary:"Pick your assistant, set it up on phone and laptop, and build three habits that save an hour a week.",
+      video:{ kind:"youtube", id:"REPLACE_WITH_YOUTUBE_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[
+        { label:"Prompt cheat-sheet (PDF)", url:"https://drive.google.com/file/d/REPLACE_ME/view" },
+        { label:"Daily habits checklist",   url:"https://docs.google.com/document/d/REPLACE_ME/edit" }
+      ],
+      tags:["getting started","prompting","mobile"]
+    },
+    {
+      id:"personal-02", track:"personal", number:2,
+      title:"Household Admin on Autopilot",
+      date:"2026-01-21", duration:"68 min",
+      summary:"Budgets, meal plans, school forms, and appointment juggling — handled with reusable prompt templates.",
+      video:{ kind:"youtube", id:"REPLACE_WITH_YOUTUBE_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[{ label:"Family prompt pack", url:"https://drive.google.com/file/d/REPLACE_ME/view" }],
+      tags:["budgeting","planning","templates"]
+    },
+    {
+      id:"business-01", track:"business", number:1,
+      title:"AI Front Desk: Email, Scheduling & Customer Replies",
+      date:"2026-01-15", duration:"81 min",
+      summary:"Cut your inbox time in half with drafted replies, an FAQ bot, and a booking workflow that runs itself.",
+      video:{ kind:"youtube", id:"REPLACE_WITH_YOUTUBE_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[
+        { label:"Customer reply templates", url:"https://docs.google.com/document/d/REPLACE_ME/edit" },
+        { label:"Tool comparison sheet",    url:"https://docs.google.com/spreadsheets/d/REPLACE_ME/edit" }
+      ],
+      tags:["email","automation","customer service"]
+    },
+    {
+      id:"business-02", track:"business", number:2,
+      title:"Marketing Content in 30 Minutes a Week",
+      date:"2026-01-22", duration:"76 min",
+      summary:"Build a month of social posts, a newsletter, and a flyer from one brand brief you write once.",
+      video:{ kind:"drive", id:"REPLACE_WITH_DRIVE_FILE_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[{ label:"Brand brief template", url:"https://docs.google.com/document/d/REPLACE_ME/edit" }],
+      tags:["marketing","social media","content"]
+    },
+    {
+      id:"revenue-01", track:"revenue", number:1,
+      title:"Finding Your First Paying AI Service",
+      date:"2026-01-16", duration:"88 min",
+      summary:"Match what you already know to what local businesses pay for, and price your first offer with confidence.",
+      video:{ kind:"youtube", id:"REPLACE_WITH_YOUTUBE_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[
+        { label:"Service menu worksheet", url:"https://docs.google.com/document/d/REPLACE_ME/edit" },
+        { label:"Pricing calculator",     url:"https://docs.google.com/spreadsheets/d/REPLACE_ME/edit" }
+      ],
+      tags:["freelancing","pricing","offers"]
+    },
+    {
+      id:"revenue-02", track:"revenue", number:2,
+      title:"Proposals, Contracts & Getting Paid",
+      date:"2026-01-23", duration:"79 min",
+      summary:"Generate a proposal in ten minutes, send a clean contract, and set up invoicing that chases itself.",
+      video:{ kind:"vimeo", id:"REPLACE_WITH_VIMEO_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[{ label:"Proposal + contract pack", url:"https://drive.google.com/file/d/REPLACE_ME/view" }],
+      tags:["proposals","contracts","invoicing"]
+    },
+    {
+      id:"cert-01", track:"cert", number:1,
+      title:"Cohort Kickoff: Exam Map & 6-Week Study Plan",
+      date:"2026-01-17", duration:"64 min",
+      summary:"What the Google AI certification actually tests, how it is scored, and the week-by-week plan we will follow.",
+      video:{ kind:"youtube", id:"REPLACE_WITH_YOUTUBE_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[
+        { label:"6-week study planner", url:"https://docs.google.com/spreadsheets/d/REPLACE_ME/edit" },
+        { label:"Official exam guide",  url:"https://cloud.google.com/learn/certification" }
+      ],
+      tags:["certification","study plan","exam"]
+    },
+    {
+      id:"cert-02", track:"cert", number:2,
+      title:"Generative AI Fundamentals — Drill Session",
+      date:"2026-01-24", duration:"92 min",
+      summary:"Models, tokens, grounding, and responsible AI — the vocabulary section of the exam, drilled with practice questions.",
+      video:{ kind:"youtube", id:"REPLACE_WITH_YOUTUBE_ID" },
+      slides:"https://docs.google.com/presentation/d/REPLACE_ME/edit",
+      resources:[{ label:"Practice question bank", url:"https://docs.google.com/document/d/REPLACE_ME/edit" }],
+      tags:["fundamentals","practice test","vocabulary"]
+    }
+  ]
+};
+
+/* ================================================================
+   CRYPTO
+   ================================================================ */
+const KEY_SS = "aml.portal.key";     // sessionStorage
+const KEY_LS = "aml.portal.key";     // localStorage (opt-in)
+const KEY_TRIES = "aml.portal.tries";
+
+const te = new TextEncoder();
+const b64e = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const b64d = str => Uint8Array.from(atob(str), c => c.charCodeAt(0));
+
+function requireCrypto(){
+  if (!window.crypto || !window.crypto.subtle) {
+    throw new Error("NO_SUBTLE");
+  }
+}
+
+async function baseKey(pass){
+  return crypto.subtle.importKey("raw", te.encode(pass), "PBKDF2", false, ["deriveBits","deriveKey"]);
+}
+async function deriveHash(pass, saltB64, iters){
+  const bits = await crypto.subtle.deriveBits(
+    { name:"PBKDF2", salt:b64d(saltB64), iterations:iters, hash:"SHA-256" },
+    await baseKey(pass), 256
+  );
+  return b64e(bits);
+}
+async function deriveAesKey(pass, saltB64, iters, usages){
+  return crypto.subtle.deriveKey(
+    { name:"PBKDF2", salt:b64d(saltB64), iterations:iters, hash:"SHA-256" },
+    await baseKey(pass), { name:"AES-GCM", length:256 }, false, usages
+  );
+}
+/** Constant-time-ish string compare (both are fixed-length base64 digests). */
+function safeEqual(a, b){
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+/** Returns the content object if the passcode is correct, else null. */
+async function tryUnlock(pass){
+  requireCrypto();
+  if (PAYLOAD) {
+    const key = await deriveAesKey(pass, PAYLOAD.salt, CONFIG.kdf, ["decrypt"]);
+    try {
+      const plain = await crypto.subtle.decrypt(
+        { name:"AES-GCM", iv:b64d(PAYLOAD.iv) }, key, b64d(PAYLOAD.data)
+      );
+      return JSON.parse(new TextDecoder().decode(plain));
+    } catch { return null; }   // bad passcode -> auth tag mismatch
+  }
+  const h = await deriveHash(pass, VERIFIER.salt, CONFIG.kdf);
+  return safeEqual(h, VERIFIER.hash) ? CONTENT : null;
+}
+
+/* ================================================================
+   GATE UI
+   ================================================================ */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+const gateEl = $("#gate"), appEl = $("#app"), adminEl = $("#admin");
+const pwEl = $("#pw"), msgEl = $("#gate-msg"), unlockBtn = $("#unlock");
+
+function showMsg(text, kind){
+  msgEl.textContent = text;
+  msgEl.className = "msg" + (kind === "info" ? " info" : "");
+}
+function clearMsg(){ msgEl.className = "msg hidden"; msgEl.textContent = ""; }
+
+$("#peek").addEventListener("click", e => {
+  const b = e.currentTarget, on = pwEl.type === "password";
+  pwEl.type = on ? "text" : "password";
+  b.setAttribute("aria-pressed", String(on));
+  b.setAttribute("aria-label", on ? "Hide passcode" : "Show passcode");
+  pwEl.focus();
+});
+
+function tries(){ return Number(sessionStorage.getItem(KEY_TRIES) || 0); }
+function bumpTries(){ sessionStorage.setItem(KEY_TRIES, String(tries() + 1)); }
+
+$("#gate-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const pass = pwEl.value.trim();
+  if (!pass) return;
+
+  if (tries() >= CONFIG.maxTries){
+    showMsg("Too many attempts. Reload the page to try again, or email " + CONFIG.support + ".");
+    return;
+  }
+
+  unlockBtn.disabled = true;
+  unlockBtn.textContent = "Checking…";
+  clearMsg();
+
+  try {
+    const data = await tryUnlock(pass);
+    if (data){
+      if ($("#remember").checked) localStorage.setItem(KEY_LS, pass);
+      sessionStorage.setItem(KEY_SS, pass);
+      sessionStorage.removeItem(KEY_TRIES);
+      boot(data);
+      return;
+    }
+    bumpTries();
+    const left = Math.max(0, CONFIG.maxTries - tries());
+    showMsg("That passcode did not work." + (left <= 3 ? ` ${left} attempt${left === 1 ? "" : "s"} left.` : ""));
+    pwEl.select();
+    // small penalty delay — discourages casual guessing
+    await new Promise(r => setTimeout(r, 400 * tries()));
+  } catch (err) {
+    showMsg(err.message === "NO_SUBTLE"
+      ? "This page must be served over https:// (or localhost) for the passcode check to work. Opening the file directly from disk disables browser crypto."
+      : "Something went wrong unlocking. Please refresh and try again.");
+  } finally {
+    unlockBtn.disabled = false;
+    unlockBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0"/></svg> Unlock archive';
+  }
+});
+
+$("#signout").addEventListener("click", () => {
+  sessionStorage.removeItem(KEY_SS);
+  localStorage.removeItem(KEY_LS);
+  location.reload();
+});
+
+/* ================================================================
+   RENDERING
+   ================================================================ */
+let DATA = { tracks:[], sessions:[] };
+const state = { q:"", tracks:new Set(), sort:"new" };
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+  ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+
+function trackOf(id){
+  return DATA.tracks.find(t => t.id === id) || { id, name:id, short:id, color:"#64748b" };
+}
+function embedUrl(v){
+  if (!v) return null;
+  switch (v.kind){
+    case "youtube": return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?rel=0&modestbranding=1&autoplay=1`;
+    case "vimeo":   return `https://player.vimeo.com/video/${encodeURIComponent(v.id)}?autoplay=1`;
+    case "drive":   return `https://drive.google.com/file/d/${encodeURIComponent(v.id)}/preview`;
+    case "url":     return v.url || null;
+    default:        return null;
+  }
+}
+function thumbUrl(v){
+  if (v && v.kind === "youtube") return `https://i.ytimg.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg`;
+  if (v && v.thumb) return v.thumb;
+  return null;
+}
+function prettyDate(iso){
+  if (!iso) return "";
+  const d = new Date(iso + (iso.length === 10 ? "T12:00:00" : ""));
+  return isNaN(d) ? iso : d.toLocaleDateString(undefined, { month:"short", day:"numeric", year:"numeric" });
+}
+
+function filtered(){
+  const q = state.q.toLowerCase().trim();
+  let out = DATA.sessions.filter(s => {
+    if (state.tracks.size && !state.tracks.has(s.track)) return false;
+    if (!q) return true;
+    const hay = [s.title, s.summary, trackOf(s.track).name, (s.tags || []).join(" "),
+                 (s.resources || []).map(r => r.label).join(" ")].join(" ").toLowerCase();
+    return q.split(/\s+/).every(w => hay.includes(w));
+  });
+  out.sort((a, b) => {
+    if (state.sort === "track"){
+      const d = String(a.track).localeCompare(String(b.track));
+      return d || (a.number || 0) - (b.number || 0);
+    }
+    const da = a.date || "", db = b.date || "";
+    return state.sort === "old" ? da.localeCompare(db) : db.localeCompare(da);
+  });
+  return out;
+}
+
+function renderChips(){
+  const counts = {};
+  DATA.sessions.forEach(s => counts[s.track] = (counts[s.track] || 0) + 1);
+  const all = state.tracks.size === 0;
+  const html = [
+    `<button class="chip" data-track="__all" aria-pressed="${all}">All tracks <span class="n">${DATA.sessions.length}</span></button>`,
+    ...DATA.tracks.map(t => `
+      <button class="chip" data-track="${esc(t.id)}" aria-pressed="${state.tracks.has(t.id)}">
+        <span class="dot" style="background:${esc(t.color)}"></span>${esc(t.name)}
+        <span class="n">${counts[t.id] || 0}</span>
+      </button>`)
+  ].join("");
+  $("#chips").innerHTML = html;
+}
+
+function cardHtml(s){
+  const t = trackOf(s.track);
+  const thumb = thumbUrl(s.video);
+  const playable = !!embedUrl(s.video);
+  return `
+  <article class="card">
+    ${playable
+      ? `<button class="thumb" data-play="${esc(s.id)}" aria-label="Play ${esc(s.title)}">
+           ${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy">` : ""}
+           <span class="play"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+           ${s.duration ? `<span class="dur">${esc(s.duration)}</span>` : ""}
+         </button>`
+      : `<div class="thumb" aria-hidden="true"><span class="ph">Recording coming soon</span></div>`}
+    <div class="card-body">
+      <span class="badge" style="color:${esc(t.color)}"><span class="dot"></span>${esc(t.short || t.name)}</span>
+      <h3>${esc(s.title)}</h3>
+      <div class="meta">
+        ${s.number ? `<span>Session ${esc(s.number)}</span>` : ""}
+        ${s.date ? `<span>·</span><span>${esc(prettyDate(s.date))}</span>` : ""}
+      </div>
+      ${s.summary ? `<p class="sum">${esc(s.summary)}</p>` : ""}
+      ${(s.tags || []).length ? `<div class="tags">${s.tags.map(x => `<span class="tag">${esc(x)}</span>`).join("")}</div>` : ""}
+      <div class="actions">
+        ${playable ? `<button class="btn btn-primary" style="width:auto" data-play="${esc(s.id)}">Watch</button>` : ""}
+        ${s.slides ? `<a class="btn btn-ghost" href="${esc(s.slides)}" target="_blank" rel="noopener noreferrer">Slides</a>` : ""}
+        ${(s.resources || []).map(r =>
+          `<a class="btn btn-ghost" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.label)}</a>`).join("")}
+      </div>
+    </div>
+  </article>`;
+}
+
+function render(){
+  const rows = filtered();
+  $("#grid").innerHTML = rows.map(cardHtml).join("");
+
+  // A deleted video or a placeholder id 404s its thumbnail — drop the broken
+  // image and let the gradient show through instead of a torn-page icon.
+  $$("#grid .thumb img").forEach(img => {
+    const drop = () => img.remove();
+    if (img.complete && img.naturalWidth === 0) drop();
+    else img.addEventListener("error", drop, { once: true });
+  });
+
+  $("#empty").classList.toggle("hidden", rows.length > 0);
+  $("#count").textContent = rows.length === DATA.sessions.length
+    ? `${rows.length} session${rows.length === 1 ? "" : "s"}`
+    : `${rows.length} of ${DATA.sessions.length} sessions`;
+  renderChips();
+}
+
+/* ---------- Modal ---------- */
+let lastFocus = null;
+function openVideo(id){
+  const s = DATA.sessions.find(x => x.id === id);
+  const src = s && embedUrl(s.video);
+  if (!src) return;
+  lastFocus = document.activeElement;
+
+  const t = trackOf(s.track);
+  const wrap = document.createElement("div");
+  wrap.className = "backdrop";
+  wrap.id = "modal";
+  wrap.setAttribute("role", "dialog");
+  wrap.setAttribute("aria-modal", "true");
+  wrap.setAttribute("aria-label", s.title);
+  wrap.innerHTML = `
+    <div class="modal">
+      <div class="frame">
+        <iframe src="${esc(src)}" title="${esc(s.title)}" allow="accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="modal-body">
+        <div class="modal-head">
+          <div>
+            <span class="badge" style="color:${esc(t.color)}"><span class="dot"></span>${esc(t.short || t.name)}</span>
+            <h2 style="margin-top:9px">${esc(s.title)}</h2>
+            <div class="meta" style="font-size:.8rem;color:var(--ink-3)">
+              ${s.number ? `Session ${esc(s.number)} · ` : ""}${esc(prettyDate(s.date))}${s.duration ? " · " + esc(s.duration) : ""}
+            </div>
+          </div>
+          <button class="xbtn" type="button" data-close aria-label="Close">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        ${s.summary ? `<p style="margin:0;color:var(--ink-2);font-size:.92rem">${esc(s.summary)}</p>` : ""}
+        <div class="actions" style="border-top:1px solid var(--line-soft)">
+          ${s.slides ? `<a class="btn btn-ghost" href="${esc(s.slides)}" target="_blank" rel="noopener noreferrer">Slide deck</a>` : ""}
+          ${(s.resources || []).map(r =>
+            `<a class="btn btn-ghost" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.label)}</a>`).join("")}
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(wrap);
+  document.body.style.overflow = "hidden";
+  wrap.querySelector("[data-close]").focus();
+}
+function closeVideo(){
+  const m = $("#modal");
+  if (!m) return;
+  m.remove();
+  document.body.style.overflow = "";
+  if (lastFocus) lastFocus.focus();
+}
+
+/* ---------- Events ---------- */
+document.addEventListener("click", e => {
+  const play = e.target.closest("[data-play]");
+  if (play){ openVideo(play.dataset.play); return; }
+  if (e.target.closest("[data-close]")){ closeVideo(); return; }
+  if (e.target.id === "modal"){ closeVideo(); return; }
+
+  const chip = e.target.closest(".chip");
+  if (chip){
+    const id = chip.dataset.track;
+    if (id === "__all") state.tracks.clear();
+    else state.tracks.has(id) ? state.tracks.delete(id) : state.tracks.add(id);
+    render();
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeVideo();
+  if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)){
+    e.preventDefault();
+    $("#search").focus();
+  }
+});
+
+let debounce;
+$("#search").addEventListener("input", e => {
+  clearTimeout(debounce);
+  const v = e.target.value;
+  debounce = setTimeout(() => { state.q = v; render(); }, 130);
+});
+$("#sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+
+/* ---------- Boot ---------- */
+function boot(data){
+  DATA = {
+    tracks: Array.isArray(data.tracks) ? data.tracks : [],
+    sessions: Array.isArray(data.sessions) ? data.sessions : []
+  };
+  $("#s-sessions").textContent  = DATA.sessions.length;
+  $("#s-tracks").textContent    = DATA.tracks.length;
+  $("#s-resources").textContent = DATA.sessions.reduce(
+    (n, s) => n + (s.slides ? 1 : 0) + (s.resources || []).length, 0);
+  $("#s-updated").textContent   = data.updated || CONFIG.updated;
+
+  gateEl.classList.add("hidden");
+  appEl.classList.remove("hidden");
+  render();
+}
+
+(async function init(){
+  if (location.hash === "#admin"){
+    gateEl.classList.add("hidden");
+    adminEl.classList.remove("hidden");
+    return;
+  }
+  const saved = sessionStorage.getItem(KEY_SS) || localStorage.getItem(KEY_LS);
+  if (saved){
+    try {
+      const data = await tryUnlock(saved);
+      if (data){ boot(data); return; }
+      sessionStorage.removeItem(KEY_SS);
+      localStorage.removeItem(KEY_LS);
+      showMsg("The passcode changed — please enter the new one.", "info");
+    } catch { /* fall through to the form */ }
+  }
+  pwEl.focus();
+})();
+
+/* ================================================================
+   ADMIN TOOL
+   ================================================================ */
+if (adminEl){
+  const out = $("#a-out");
+  const pass = () => $("#a-pass").value.trim();
+  const json = () => JSON.parse($("#a-json").value);
+
+  $("#a-load").addEventListener("click", () => {
+    $("#a-json").value = JSON.stringify(CONTENT, null, 2);
+    out.value = "Loaded the CONTENT block from this file.";
+  });
+
+  $("#a-validate").addEventListener("click", () => {
+    try {
+      const d = json();
+      const ids = (d.sessions || []).map(s => s.id);
+      const dupes = ids.filter((x, i) => ids.indexOf(x) !== i);
+      const trackIds = new Set((d.tracks || []).map(t => t.id));
+      const orphans = (d.sessions || []).filter(s => !trackIds.has(s.track)).map(s => s.id);
+      out.value =
+        `Valid JSON.\n${(d.tracks || []).length} tracks, ${(d.sessions || []).length} sessions.` +
+        (dupes.length  ? `\n\nWARNING duplicate session ids: ${[...new Set(dupes)].join(", ")}` : "") +
+        (orphans.length ? `\n\nWARNING sessions with unknown track: ${orphans.join(", ")}` : "") +
+        (!dupes.length && !orphans.length ? "\n\nNo problems found." : "");
+    } catch (err){ out.value = "Invalid JSON: " + err.message; }
+  });
+
+  $("#a-hash").addEventListener("click", async () => {
+    if (!pass()) return (out.value = "Enter a passcode first.");
+    try {
+      requireCrypto();
+      const salt = b64e(crypto.getRandomValues(new Uint8Array(16)));
+      const hash = await deriveHash(pass(), salt, CONFIG.kdf);
+      out.value =
+`// MODE A — replace VERIFIER in index.html, keep PAYLOAD = null,
+// and paste your content into the CONTENT object.
+const VERIFIER = {
+  salt: "${salt}",
+  hash: "${hash}"
+};
+const PAYLOAD = null;`;
+    } catch { out.value = "Browser crypto unavailable. Serve this page over https:// or localhost."; }
+  });
+
+  $("#a-enc").addEventListener("click", async () => {
+    if (!pass()) return (out.value = "Enter a passcode first.");
+    let data;
+    try { data = json(); } catch (err){ return (out.value = "Invalid JSON: " + err.message); }
+    try {
+      requireCrypto();
+      const salt = b64e(crypto.getRandomValues(new Uint8Array(16)));
+      const iv   = crypto.getRandomValues(new Uint8Array(12));
+      const key  = await deriveAesKey(pass(), salt, CONFIG.kdf, ["encrypt","decrypt"]);
+      const ct   = await crypto.subtle.encrypt({ name:"AES-GCM", iv }, key, te.encode(JSON.stringify(data)));
+      out.value =
+`// MODE B — replace PAYLOAD in index.html with this.
+// VERIFIER and CONTENT are then ignored and can be emptied out.
+const PAYLOAD = {
+  salt: "${salt}",
+  iv:   "${b64e(iv)}",
+  data: "${b64e(ct)}"
+};`;
+    } catch (err){ out.value = "Encryption failed: " + err.message; }
+  });
+
+  $("#a-copy").addEventListener("click", async () => {
+    if (!out.value) return;
+    try { await navigator.clipboard.writeText(out.value); out.focus(); }
+    catch { out.select(); }
+  });
+}
+</script>
+</body>
+</html>

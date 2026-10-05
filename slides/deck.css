@@ -1,0 +1,274 @@
+/* ============================================================
+   AI My Life — shared slide-deck styling
+
+   One stylesheet for every deck in this folder. A deck picks up
+   its course color by setting a track on the body element:
+
+     <body data-track="personal">   personal | business | revenue | cert
+
+   The colors match the course cards on the landing page.
+   ============================================================ */
+:root{
+  --bg:#090e1a;
+  --card-bg:#141e33;
+  --code-bg:#030712;
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --border:rgba(255,255,255,.12);
+  --accent:#10b981;
+  --accent-soft:rgba(16,185,129,.15);
+  --accent-line:rgba(16,185,129,.32);
+}
+body[data-track="personal"]{--accent:#34d399;--accent-soft:rgba(52,211,153,.15);--accent-line:rgba(52,211,153,.32)}
+body[data-track="business"]{--accent:#38bdf8;--accent-soft:rgba(56,189,248,.15);--accent-line:rgba(56,189,248,.32)}
+body[data-track="revenue"] {--accent:#fbbf24;--accent-soft:rgba(251,191,36,.15);--accent-line:rgba(251,191,36,.32)}
+body[data-track="cert"]    {--accent:#c084fc;--accent-soft:rgba(192,132,252,.15);--accent-line:rgba(192,132,252,.32)}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+body{
+  background-color:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- Frame ---------- */
+.deck-container{
+  position:relative;
+  width:100%;
+  max-width:1040px;
+  height:640px;
+  background:linear-gradient(145deg,#0f172a,#1a2744);
+  border-radius:16px;
+  border:1px solid var(--border);
+  box-shadow:0 25px 50px -12px rgba(0,0,0,.8);
+  display:flex;
+  flex-direction:column;
+  padding:44px 50px;
+  justify-content:space-between;
+}
+
+.slide-area{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow-y:auto;
+  padding-right:8px;
+}
+
+.slide{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  animation:fadeIn .25s ease-in-out;
+}
+
+.slide.active{display:flex}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ---------- Typography ---------- */
+.tag{
+  align-self:flex-start;
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:9999px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  margin-bottom:16px;
+  border:1px solid var(--accent-line);
+}
+
+h1{
+  font-size:2.6rem;
+  font-weight:800;
+  line-height:1.15;
+  margin-bottom:16px;
+  background:linear-gradient(to right,#f8fafc 18%,var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+h2{
+  font-size:2rem;
+  font-weight:700;
+  margin-bottom:18px;
+  color:#fff;
+  letter-spacing:-.02em;
+}
+
+p.subtitle{
+  font-size:1.15rem;
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:16px;
+}
+
+/* ---------- Layout helpers ---------- */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+.card{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  border-top:4px solid var(--accent);
+}
+
+/* .alt tones a card down when you want one to read as secondary */
+.card.alt{border-top-color:#475569}
+
+.card h3{font-size:1.15rem;margin-bottom:8px;color:#fff}
+.card p,.card li{font-size:.95rem;color:var(--muted);line-height:1.5}
+.card ul{margin:8px 0 0 18px}
+.card ul li{margin-bottom:5px}
+
+.prompt-box{
+  background:var(--code-bg);
+  border-left:3px solid var(--accent);
+  padding:12px 14px;
+  border-radius:6px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.88rem;
+  color:#cbd5e1;
+  margin-top:10px;
+  line-height:1.45;
+  white-space:pre-wrap;
+}
+
+.list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.list li{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  font-size:1rem;
+  color:#e2e8f0;
+  line-height:1.5;
+}
+
+.bullet{
+  background:var(--accent);
+  color:#0b1220;
+  font-weight:700;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:.85rem;
+}
+
+/* A quiet aside for caveats and "check this yourself" notes */
+.note{
+  margin-top:16px;
+  border-left:3px solid #475569;
+  padding:10px 14px;
+  font-size:.9rem;
+  color:var(--muted);
+  line-height:1.5;
+  background:rgba(255,255,255,.03);
+  border-radius:0 6px 6px 0;
+}
+
+/* ---------- Footer + controls ---------- */
+.footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid var(--border);
+  padding-top:18px;
+  font-size:.85rem;
+  color:var(--muted);
+  margin-top:10px;
+  gap:16px;
+}
+
+.nav-buttons{display:flex;gap:10px;align-items:center}
+
+button{
+  background:#25334d;
+  color:#fff;
+  border:1px solid var(--border);
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:.85rem;
+  transition:background .15s ease,color .15s ease;
+}
+
+button:hover:not([disabled]){background:var(--accent);color:#0b1220}
+button[disabled]{opacity:.38;cursor:not-allowed}
+
+#counter{font-variant-numeric:tabular-nums;min-width:52px;text-align:center}
+
+.back-link{color:var(--accent);text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
+
+/* ---------- Presenter notes ----------
+   Hidden by default — these are speaker script, not student material.
+   Add ?notes to the URL to bring the bar back for live presenting. */
+.teleprompter{
+  display:none;
+  width:100%;
+  max-width:1040px;
+  background:#0f172a;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 18px;
+  font-size:.9rem;
+  color:#cbd5e1;
+  align-items:center;
+  gap:12px;
+  margin-top:16px;
+}
+
+body.show-notes .teleprompter{display:flex}
+
+.teleprompter-badge{
+  background:#1e293b;
+  font-weight:700;
+  font-size:.75rem;
+  text-transform:uppercase;
+  padding:4px 8px;
+  border-radius:4px;
+  color:var(--accent);
+  flex-shrink:0;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width:860px){
+  body{padding:16px 14px 28px;justify-content:flex-start}
+  .deck-container{height:auto;min-height:62vh;padding:26px 20px}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  h1{font-size:1.85rem}
+  h2{font-size:1.45rem}
+  p.subtitle{font-size:1rem}
+  .footer{flex-direction:column;gap:14px;align-items:flex-start}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}

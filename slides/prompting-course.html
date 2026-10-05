@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompting Course — Google AI Certification · AI My Life</title>
+<meta name="description" content="The full prompting curriculum for the AI My Life Google AI Certification cohort: the five-step framework, precision phrases, prompt chaining, and context management.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a1628'/><path d='M27 72 50 26 73 72' stroke='%2310b981' stroke-width='9' fill='none' stroke-linejoin='round' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body data-track="cert">
+
+<div class="deck-container">
+  <div class="slide-area">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" data-notes="Welcome everyone! Today we cover the complete Google AI Certification Prompting Course, taking you from basic prompts to structured chaining workflows.">
+      <div class="tag">AI My Life • Certification Track</div>
+      <h1>Google AI Certification:<br>Prompting Course</h1>
+      <p class="subtitle">A masterclass in meta-prompting, precision boundaries, and multi-step prompt chaining.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Part 1: The 5-Step Framework</h3>
+          <p>Meta-prompting, persona definition, and structured outputs.</p>
+        </div>
+        <div class="card alt">
+          <h3>Part 2: Chaining & Precision</h3>
+          <p>Assembly-line workflows and high-impact control phrases.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Micro vs Macro -->
+    <div class="slide" data-notes="Explain the difference between single-prompt tuning and macro-level chaining. We need both to master modern AI models.">
+      <div class="tag">Conceptual Architecture</div>
+      <h2>Micro-Level vs. Macro-Level AI</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Micro-Level: Powerful Phrases</h3>
+          <p>Refining single queries to set clear reasoning steps, negative constraints, and output personas.</p>
+          <div class="prompt-box">"Think step-by-step. Focus exclusively on revenue."</div>
+        </div>
+        <div class="card alt">
+          <h3>Macro-Level: Prompt Chaining</h3>
+          <p>Connecting multiple steps in sequence. The output of Step A becomes the input of Step B.</p>
+          <div class="prompt-box">Step 1: Ideate → Step 2: Plan → Step 3: Localize</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Steps 1 & 2 -->
+    <div class="slide" data-notes="Walk through Step 1 and Step 2. Emphasize meta-prompting: asking the AI what it needs from you to give a better answer.">
+      <div class="tag">5-Step Framework • Part 1</div>
+      <h2>Step 1 & Step 2: Establish & Invert</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Step 1: Define Initial Task</h3>
+          <p>Start a new chat to set your high-level objective:</p>
+          <div class="prompt-box">"I want to learn a new skill to [your goal], but I'm not sure where to start. Help me brainstorm some ideas."</div>
+        </div>
+        <div class="card alt">
+          <h3>Step 2: Meta-Prompting</h3>
+          <p>Ask AI how to refine its own thinking:</p>
+          <div class="prompt-box">"What questions can I answer to help you tailor your suggestions?"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Steps 3 & 4 -->
+    <div class="slide" data-notes="Cover Step 3 and 4: Injecting your specific answers and assigning a professional persona to evaluate the options.">
+      <div class="tag">5-Step Framework • Part 2</div>
+      <h2>Step 3 & Step 4: Context & Persona</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Step 3: Provide Details</h3>
+          <p>Answer the AI's diagnostic questions in the same chat:</p>
+          <div class="prompt-box">"Here are some details about me:
+- [Answer 1]
+- [Answer 2]
+Based on this, suggest [three] skills relevant to me."</div>
+        </div>
+        <div class="card alt">
+          <h3>Step 4: Define a Persona</h3>
+          <p>Adopt an expert evaluation perspective:</p>
+          <div class="prompt-box">"Now, act as a [career coach / hiring manager]. Which of these skills should I focus on first? Explain your reasoning."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Step 5 -->
+    <div class="slide" data-notes="Explain Step 5: Always turn abstract ideas into actionable tables with clear timeframes and tangible outcomes.">
+      <div class="tag">5-Step Framework • Part 3</div>
+      <h2>Step 5: Decide on Next Steps</h2>
+      <p class="subtitle">Convert open advice into a concrete, structured action plan.</p>
+      <div class="card">
+        <h3>The Action-Oriented Prompt Template</h3>
+        <div class="prompt-box">"Suggest [three] actions I can take [this week] to start learning that skill.
+Format this as a [table] with columns: [Action, Time Required, Expected Deliverable]."</div>
+      </div>
+      <div class="card alt" style="margin-top: 14px;">
+        <p><strong>Pro Tip:</strong> Always prompt the AI: <em>"Please ask me any follow-up or clarifying questions before continuing."</em></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Powerful Phrases -->
+    <div class="slide" data-notes="Go through precision phrases. These are operational levers that guide AI reasoning paths.">
+      <div class="tag">Precision Prompting</div>
+      <h2>Guiding AI with Powerful Phrases</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Provide a Process</h3>
+          <div class="prompt-box">"Think step-by-step."
+"First [action 1]. Second [action 2]. Finally [action 3]."</div>
+        </div>
+        <div class="card alt">
+          <h3>Set Hard Boundaries</h3>
+          <div class="prompt-box">"Focus exclusively on [Topic A] and do not mention [Topic B]."
+"Write a one-paragraph summary."</div>
+        </div>
+        <div class="card">
+          <h3>Define Audience & Tone</h3>
+          <div class="prompt-box">"Write this for an audience of [executives]. The tone should be [objective and professional]."</div>
+        </div>
+        <div class="card alt">
+          <h3>Request a Critique</h3>
+          <div class="prompt-box">"Play devil's advocate. What is the strongest counterargument to this proposal?"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Expand & Alternate -->
+    <div class="slide" data-notes="Teach learners how to iterate without starting over: generate 3 alternative angles or drill down on a single point.">
+      <div class="tag">Iterative Depth</div>
+      <h2>Expand, Elaborate, and Pivot</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Generate Alternatives</h3>
+          <p>Broaden your options before deciding:</p>
+          <div class="prompt-box">"Give me 3 different versions of this."
+"What is an unconventional alternative approach to solving this problem?"</div>
+        </div>
+        <div class="card alt">
+          <h3>Targeted Expansion</h3>
+          <p>Drill down into specific weak spots:</p>
+          <div class="prompt-box">"Elaborate on point 2."
+"Provide more detail and specific examples for the section about [topic]."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Prompt Chaining -->
+    <div class="slide" data-notes="Demonstrate the Paris itinerary example to show how each prompt links to the previous response.">
+      <div class="tag">Advanced Workflow</div>
+      <h2>Prompt Chaining: The Assembly Line</h2>
+      <p class="subtitle">Tackle large projects by passing outputs directly into subsequent prompts.</p>
+      <ul class="list">
+        <li>
+          <span class="bullet">1</span>
+          <div><strong>Prompt 1 (Ideation):</strong> "I'm going to Paris for 3 days. I like art and parks. Suggest a few well-known places to visit."</div>
+        </li>
+        <li>
+          <span class="bullet">2</span>
+          <div><strong>Prompt 2 (Optimization):</strong> "Using those locations, create a logical day-by-day itinerary that minimizes travel time."</div>
+        </li>
+        <li>
+          <span class="bullet">3</span>
+          <div><strong>Prompt 3 (Refinement):</strong> "For each day of the itinerary, suggest a few restaurants located near the afternoon destinations."</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SLIDE 9: Role Applications -->
+    <div class="slide" data-notes="Show how different business functions apply prompt chaining in daily work.">
+      <div class="tag">Practical Applications</div>
+      <h2>Real-World Role Chaining</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Marketing Track</h3>
+          <p>1. Generate 3 campaign concepts.</p>
+          <p>2. Select the top concept → Build a 4-week launch timeline.</p>
+        </div>
+        <div class="card alt">
+          <h3>Sales Track</h3>
+          <p>1. Identify target client pain points.</p>
+          <p>2. Draft a personalized outreach email for the top priority.</p>
+        </div>
+        <div class="card">
+          <h3>Operations Track</h3>
+          <p>1. Identify an operational bottleneck.</p>
+          <p>2. Request a step-by-step mitigation workflow with metrics.</p>
+        </div>
+        <div class="card alt">
+          <h3>Strategy & Growth</h3>
+          <p>1. Outline business expansion goals.</p>
+          <p>2. Stress-test assumptions and formulate risk mitigations.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Reset Strategy -->
+    <div class="slide" data-notes="Share this key trick from Google: Always summarize before starting a fresh chat to avoid context contamination.">
+      <div class="tag">Thread Hygiene</div>
+      <h2>When to Reset: Context Management</h2>
+      <p class="subtitle">Long chats accumulate noise and context decay. Reset cleanly without losing progress.</p>
+      <div class="card">
+        <h3>The Context Preservation Prompt</h3>
+        <p>Before closing or restarting a chat session, type:</p>
+        <div class="prompt-box">"Summarize our discussion so far into key decisions, parameters, and resolved items."</div>
+      </div>
+      <p class="subtitle" style="margin-top: 16px;">Copy the summary directly into your new session to restart with a clean memory slate.</p>
+    </div>
+
+    <!-- SLIDE 11: Summary & Lab -->
+    <div class="slide" data-notes="Summarize the core takeaways and give the audience a challenge to try immediately.">
+      <div class="tag">Action Plan</div>
+      <h2>Summary & Hands-On Lab</h2>
+      <ul class="list">
+        <li>
+          <span class="bullet">✓</span>
+          <div><strong>Invert with Meta-Prompting:</strong> Let the AI ask the qualifying questions.</div>
+        </li>
+        <li>
+          <span class="bullet">✓</span>
+          <div><strong>Guide with Precision:</strong> Use boundaries, roles, and step-by-step constraints.</div>
+        </li>
+        <li>
+          <span class="bullet">✓</span>
+          <div><strong>Chain Complex Tasks:</strong> Treat prompts as an iterative assembly line.</div>
+        </li>
+      </ul>
+      <div class="prompt-box" style="margin-top: 20px;">
+Challenge: Pick one real work project today and run a 3-link prompt chain to complete it.
+      </div>
+    </div>
+
+    <!-- SLIDE 12: Community Call to Action -->
+    <div class="slide" data-notes="Direct learners to aimylife.org for study cohorts, capstone coaching, and resources.">
+      <div class="tag">AI My Life Non-Profit</div>
+      <h1>Get Google AI Certified</h1>
+      <p class="subtitle">Join our live Zoom cohorts, weekly review sessions, and capstone coaching groups.</p>
+      <ul class="list" style="margin-bottom: 20px;">
+        <li><span class="bullet">→</span> <strong>Website:</strong> aimylife.org</li>
+        <li><span class="bullet">→</span> <strong>Access:</strong> Pay-what-you-can and community-sponsored seats</li>
+        <li><span class="bullet">→</span> <strong>Next Cohort:</strong> Register via Google Forms on our homepage</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span><a class="back-link" href="../index.html">← aimylife.org</a> · Google AI Certification · Prompting Course</span>
+    <div class="nav-buttons">
+      <button id="prevBtn" type="button">← Prev</button>
+      <span id="counter">1 / 12</span>
+      <button id="nextBtn" type="button">Next →</button>
+    </div>
+  </div>
+</div>
+
+<div class="teleprompter">
+  <span class="teleprompter-badge">Notes</span>
+  <span id="notesText"></span>
+</div>
+
+<script src="deck.js"></script>
+</body>
+</html>
