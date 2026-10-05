@@ -139,3 +139,4 @@ and let Drive enforce access server-side. Details in `docs/01-architecture.md` Â
 | YouTube unlisted hosting | free |
 | Google Workspace | free via [Google for Nonprofits](https://www.google.com/nonprofits/) |
 | Zoom Pro (needed for 40+ min sessions) | ~$150/yr, nonprofit discounts available |
+# aimylife
